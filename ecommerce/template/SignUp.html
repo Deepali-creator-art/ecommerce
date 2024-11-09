@@ -4,7 +4,7 @@
 {% block title %}
 Create a new account
 {% endblock title %}
-{% block content %} 
+{% block contents %} 
 <div>
     {% if not form.is_valid %}
     <div class="mx-auto">
@@ -39,7 +39,7 @@ Create a new account
             <br>
             Your account has been created and it is ready to use.
             <br>
-            <a href="{% url 'signin' %}">
+            <a href="#">
                 Continue shopping
             </a> and enjoy the variety of products 
         </p>
@@ -48,4 +48,4 @@ Create a new account
 {% endif %}
 
 
-{% endblock content %}
+{% endblock contents %}

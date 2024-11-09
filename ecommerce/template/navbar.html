@@ -20,9 +20,7 @@
         <li class="nav-item">
           <a class="nav-link active" aria-current="page" href="{% url 'home' %}">Home</a>
         </li>
-        <li class="nav-item">
-          <a class="nav-link" href="{% url 'signup' %}">Sign Up</a>
-        </li>
+        {% if request.user.is_authenticated %}
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
             Dropdown
@@ -35,8 +33,24 @@
           </ul>
         </li>
         <li class="nav-item">
-          <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
+          <a class="nav-link" href="{% url 'logout' %}">LogOut &nbsp;&nbsp;</a>
         </li>
+        <li class="nav-item">
+          <i class="fa fa-solid fa-user-circle" style='font-size:36px;'></i>
+          Welcome,{{request.user}}
+            
+        </li>
+        {% else %}
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'signup' %}">Sign Up</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'signin' %}">Sign In</a>
+        </li>
+        {% endif %}
+        
+        
+        
       </ul>
       <form class="d-flex">
         <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
