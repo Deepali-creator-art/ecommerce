@@ -22,25 +22,26 @@ Home
 </div>
 <div class="container">
     <div class="row">
-        
+       {% for product in products %} 
         <div class="col-9 mx-auto col-md-6 col-lg-3">
             <div class="card mb-5" style="border-color:transparent;">
                 <div class="p-4">
+
                     <a href="">
-                    <img  width="375" height="400" src="" class="card-img-top"  alt="">
+                    <img  width="375" height="400" src="{{product.image.url}}" class="card-img-top"  alt="">
                     </a>
                 </div>
                 
                 <div class="card-footer d-flex justify-content-between"
                     style="background:transparent; border-color:transparent;">
                     <p class="font-weight-bold mb-0">
-                       
+                       {{product.name}}
                     </p>
-                    <h5 class="text-info font-italic mb-0"></h5>
+                    <h5 class="text-info font-italic mb-0">{{product.price}}</h5>
                 </div>
             </div>
         </div>
-       
+       {% endfor %}
     </div>
 </div>
 {% endblock %}
