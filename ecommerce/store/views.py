@@ -111,4 +111,6 @@ def cart_remove_product(request,product_id):
     cart_item=CartItem.objects.get(product=product,cart=cart)
     cart_item.delete()
     return redirect('cart_detail')
-        
+ def search(request):
+    products=Product.objects.filter(name__contains=request.GET['title'])
+    return render(request,'home.html',{'products':products})         
