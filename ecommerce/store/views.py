@@ -113,4 +113,17 @@ def cart_remove_product(request,product_id):
     return redirect('cart_detail')
  def search(request):
     products=Product.objects.filter(name__contains=request.GET['title'])
-    return render(request,'home.html',{'products':products})         
+    return render(request,'home.html',{'products':products})  
+
+def orderHistory(request):
+    if request.user.is_authenticated:
+        email=str(request.user.email)
+        order_details=Order.objects.filter(emailaddress=email)
+    return render(request,'order_list.html',{'order_details':order_details})
+
+def viewOrder(request,order_id):
+    if request.user.is_authenticated:
+        email=str(request.user.email)
+        order=Order.objects.get(id=order_id,emailAddress=email)
+        order_items=OrderItem.objects.filter(order=order)
+    return render(request,'order_detail.html',{'Order':order,'order_items':order_items})
