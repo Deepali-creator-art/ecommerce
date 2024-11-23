@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load crispy_forms_tags %}
+{% block title %}
+Order History
+{% endblock title %}
+{% block content %} 
+<div class="text-center">
+    <br>
+    <h1 class='text-center product_title'>
+        Order History
+    <br>
+    {% if order_details %}
+    <table class="table">
+        <thead>
+          <tr>
+            <th scope="col">Order Number</th>
+            <th scope="col">Order Date</th>
+            <th scope="col">Total Amount</th>
+            <th scope="col">Status</th>
+            <th scope="col">Action</th>
+          </tr>
+        </thead>
+        <tbody>
+            {% for order in order_details %}
+          <tr>
+            <th scope="row">{{order.id}}</th>
+            <td>{{order.created |date:"d M Y"}}</td>
+            <td>{{order.total}}</td>
+            <td><i class='fa fa-check'></i>&nbsp; Complete</td>
+            <td><a herf="{% url 'order_detail' order.id%}">View Details</a></td>
+          </tr>
+          {% endfor %}
+        </tbody>
+    </table>      
+    {% else %}
+    <p>You have not placed any order yet</p>
+    <br>
+    <br>
+    <a href="{% url 'home' %}" class="btn btn-secondary">Continue Shopping</a>
+    {% endif %}
+</div>
+{% endblock %}
