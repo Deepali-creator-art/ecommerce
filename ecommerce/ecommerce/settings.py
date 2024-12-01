@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     "store",
     "crispy_forms",
     "crispy_bootstrap5",
+    "stripe",
 ]
 
 MIDDLEWARE = [
@@ -66,6 +67,8 @@ TEMPLATES = [
                 "django.template.context_processors.request",
                 "django.contrib.auth.context_processors.auth",
                 "django.contrib.messages.context_processors.messages",
+                "store.context_processor.menu_links",
+                "store.context_processor.get_paypal_client_id",
             ],
         },
     },
@@ -133,3 +136,18 @@ CRISPY_TEMPLATE_PACK = "bootstrap5"
 #media configuration
 MEDIA_ROOT = os.path.join(BASE_DIR,'media')
 MEDIA_URL = '/media/'
+#PAYPAL_CLIENT_ID='AWN7YlTx3A4S6vO8E7MmV6nw-c45wIuu-iXW7RZeJZvfRoSb6gMvxXc3maHjszdrNQwdoobJ0e4F9PLp'
+#SECURE_CROSS_ORIGIN_OPENER_POLICY='same-origin-allow-popups'
+#EMAIL CONFIGURATION
+EMAIL_HOST='smtp.gmail.com'
+EMAIL_PORT=587
+EMAIL_HOST_USER='dshinkar@sevenmentor.com'
+EMAIL_HOST_PASSWORD='dwrx vsjg ncma jwan'
+EMAIL_USE_TLS=True
+DEFAULT_FROM_EMAIL='Ecommerce application mail <dshinkar@sevenmentor.com>'
+from django.contrib.messages import constants as messages
+MESSAGE_TAGS={
+    messages.ERROR:'danger',
+}
+STRIPE_PUBLISHABLE_KEY='pk_test_51Osje2SHwh7pX3tpu2GKsLX24SKIl5IJzw7HEfzQpfQeEzRm5DdDMEa7In33GzoSuZ5Z7UXvIIQ43Nj7ZiEWRRvj00r5J4HskT'
+STRIPE_SECRET_KEY='sk_test_51Osje2SHwh7pX3tpRpocEGvBhDlN4gOLhtz8ByLuEeTU5xa2N4Gj6oWqSWKdzYEoaqfcTeDVXHNDCcOOnYpwyToa00B0iiZWFU'

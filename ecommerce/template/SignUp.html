@@ -19,14 +19,28 @@ Create a new account
         <form method="POST">
             {% csrf_token %}
             <p>{{form | crispy }}</p>
+            <ul class="errorlist">
+                {% for field in form %}
+                  {% if field.errors %}
+                    {% for error in field.errors %}
+                       <li style="color:red">{{error}}</li>
+                    {% endfor %}
+                   {% endif %}
+                {% endfor %}  
+                <li>{{form.non_field_errors}}</li>                               
+            </ul>
             <button type="submit" name="button" class="btn btn-secondary">
                 Sign Up
             </button>
+            
         </form>
         <br>
     </div>
 </div>
+
+
 {% else %}
+
 <div class="mx-auto">
     <br>
     <h1 class="product_title text-center">
@@ -39,13 +53,18 @@ Create a new account
             <br>
             Your account has been created and it is ready to use.
             <br>
-            <a href="#">
+            <a href="{% url 'signin' %}">
                 Continue shopping
             </a> and enjoy the variety of products 
         </p>
     </div>
 </div>
+
 {% endif %}
 
+<div class="row">
+    <div class="col-lg-4 col-md-12 col-sm-12 col-xs-12"></div>
+        {% include 'message.html' %}
+</div>
 
 {% endblock contents %}

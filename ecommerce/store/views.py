@@ -4,9 +4,14 @@ from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth import authenticate,login,logout
 from .models import *
 from django.core.exceptions import ObjectDoesNotExist
+from django.conf import settings
+from .utlis import send_verification_email
 from django.utils.http import urlsafe_base64_decode
 from django.contrib.auth.tokens import default_token_generator
 from django.contrib import messages
+from django.contrib.auth.models import User
+import stripe
+
 def home(request,category_slug=None):
     category_page=None
     products=None
@@ -30,7 +35,13 @@ def SignUp(request):
     if request.method=='POST':
         form=SignUpForm(request.POST)   #form object creation
         if form.is_valid():
-            form.save()
+            user=form.save()
+            #send verification email
+            email_subject='Please activate your account'
+            email_template='emails/account_verification_email.html'
+            send_verification_email(request,user,email_subject,email_template)
+            messages.success(request,"Please check your email and activate your account")
+            return redirect('signup')
     else:
         form=SignUpForm()
     context={
@@ -64,10 +75,10 @@ def activate(request,uidb64,token):
         user.is_active=True
         user.save()
         messages.success(request,"Congratulations Your account is activated")
-        return redirect('home')
+        return redirect('signin')
     else:
         messages.error(request,"Invalid activation link")
-        return redirect('signin')
+        return redirect('signup')
 def LogOut(request):
     logout(request)
     return redirect('signin')
@@ -86,10 +97,15 @@ def cart_detail(request,total=0,counter=0,cart_items=None):
             counter+=cart_item.quantity
     except ObjectDoesNotExist:
         pass
+    stripe.api_key=settings.STRIPE_SECRET_KEY
+    stripe_total=int(total*100)
+    description='sevenmentor'
+    data_key=settings.st
     context={ 
         'cart_items':cart_items,
         'counter':counter,
         'total':total,
+       
     }
     return render(request,'cart.html',context)
 def add_cart(request,product_id):
@@ -111,7 +127,7 @@ def add_cart(request,product_id):
             cart=cart
         )
         cart_item.save()
-    return redirect('cart_detail')
+    return redirect('cart_detail')   
 def cart_remove(request,product_id):
     cart=Cart.objects.get(cart_id=_cart_id(request))
     product=get_object_or_404(Product,id=product_id)
@@ -121,14 +137,14 @@ def cart_remove(request,product_id):
         cart_item.save()
     else:
         cart_item.delete()
-    return redirect('cart_detail')      
+    return redirect('cart_detail')   
 def cart_remove_product(request,product_id):
     cart=Cart.objects.get(cart_id=_cart_id(request))
     product=get_object_or_404(Product,id=product_id)
     cart_item=CartItem.objects.get(product=product,cart=cart)
     cart_item.delete()
-    return redirect('cart_detail')
- def search(request):
+    return redirect('cart_detail')  
+def search(request):
     products=Product.objects.filter(name__contains=request.GET['title'])
     return render(request,'home.html',{'products':products})  
 
