@@ -141,10 +141,10 @@ MEDIA_URL = '/media/'
 #EMAIL CONFIGURATION
 EMAIL_HOST='smtp.gmail.com'
 EMAIL_PORT=587
-EMAIL_HOST_USER='dshinkar@sevenmentor.com'
-EMAIL_HOST_PASSWORD='dwrx vsjg ncma jwan'
+EMAIL_HOST_USER='email id'
+EMAIL_HOST_PASSWORD='your password'
 EMAIL_USE_TLS=True
-DEFAULT_FROM_EMAIL='Ecommerce application mail <dshinkar@sevenmentor.com>'
+DEFAULT_FROM_EMAIL='Ecommerce application mail <mail id>'
 from django.contrib.messages import constants as messages
 MESSAGE_TAGS={
     messages.ERROR:'danger',
