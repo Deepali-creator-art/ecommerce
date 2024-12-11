@@ -136,7 +136,7 @@ CRISPY_TEMPLATE_PACK = "bootstrap5"
 #media configuration
 MEDIA_ROOT = os.path.join(BASE_DIR,'media')
 MEDIA_URL = '/media/'
-#PAYPAL_CLIENT_ID='AWN7YlTx3A4S6vO8E7MmV6nw-c45wIuu-iXW7RZeJZvfRoSb6gMvxXc3maHjszdrNQwdoobJ0e4F9PLp'
+#PAYPAL_CLIENT_ID='your palpal client id'
 #SECURE_CROSS_ORIGIN_OPENER_POLICY='same-origin-allow-popups'
 #EMAIL CONFIGURATION
 EMAIL_HOST='smtp.gmail.com'
@@ -149,5 +149,5 @@ from django.contrib.messages import constants as messages
 MESSAGE_TAGS={
     messages.ERROR:'danger',
 }
-STRIPE_PUBLISHABLE_KEY='pk_test_51Osje2SHwh7pX3tpu2GKsLX24SKIl5IJzw7HEfzQpfQeEzRm5DdDMEa7In33GzoSuZ5Z7UXvIIQ43Nj7ZiEWRRvj00r5J4HskT'
-STRIPE_SECRET_KEY='sk_test_51Osje2SHwh7pX3tpRpocEGvBhDlN4gOLhtz8ByLuEeTU5xa2N4Gj6oWqSWKdzYEoaqfcTeDVXHNDCcOOnYpwyToa00B0iiZWFU'
+STRIPE_PUBLISHABLE_KEY='your stripe publishable key'
+STRIPE_SECRET_KEY='your stripe secret key'
